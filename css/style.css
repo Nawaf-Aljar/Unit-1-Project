@@ -1,0 +1,49 @@
+.vt323-regular {
+  font-family: "VT323", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+h1{
+    font-family: "VT323";
+    text-align: center;
+    border:solid black 3px;
+    border-radius: 15px;
+    padding: 20px;
+    width: 620px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 15px;
+}
+#display-message{
+    border: solid black 3px;
+    border-radius: 15px;
+    height: 60px;
+    width: 650px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+#game-border{
+    border: solid black 3px;
+    border-radius: 15px;
+    height: 400px;
+    width: 650px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+#button{
+    border: solid black 3px;
+    border-radius: 15px;
+    text-align: center;
+    height: 70px;
+    align-content: center;
+    align-items: center;
+    width: 300px;
+    margin: 0 auto;
+}
+button{
+     background-color:white;
+     border: white;
+}
+img{
+    border-radius: 11px;
+}

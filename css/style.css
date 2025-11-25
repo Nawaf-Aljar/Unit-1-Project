@@ -22,6 +22,12 @@ h1{
     margin: 0 auto;
     margin-bottom: 20px;
 }
+#timer{
+    text-align: center;
+}
+#score{
+    text-align: center;
+}
 .game{
     border: solid black 3px;
     /* background-color: red; */

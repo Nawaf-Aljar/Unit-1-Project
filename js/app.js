@@ -32,21 +32,13 @@ function init() {
     fallingElement.style.left = Math.random() * 370 + 'px';
     fallingElement.style.top = '0px'
     fallingInterval = setInterval(objectMovement, fallingSpeed);
-    timeInterval = setInterval(() => {
-        timer--
-
-        if (timer < 0){
-            clearInterval(timeInterval)
-        }
-    },1000)
-    displayTimerElement.textContent = timeInterval
+    time()
 }
 function objectMovement() {
     let objectTop = parseInt(fallingElement.style.top);
     objectTop += fallingSpeed;
     fallingElement.style.top = objectTop + 'px';
-    if (objectTop > 335 && objectTop < 800 && 
-        parseInt(fallingElement.style.left) > characterPosition - 50 && 
+    if (objectTop > 335 && objectTop < 800 && parseInt(fallingElement.style.left) > characterPosition - 50 && 
         parseInt(fallingElement.style.left) < characterPosition + 80) {
         score++;
         displayScoreElement.innerText = 'Score: ' + score;
@@ -64,7 +56,18 @@ function checkGameOver(){
 
 }
 function checkForWinner(){
-
+    if(timer === 0 && score === 30){
+        winner = true
+    }
+}
+function time(){
+    timeInterval = setInterval(() => {
+        timer--
+        displayTimerElement.textContent = "Timer: " + timer
+        if (timer <= 0){
+            clearInterval(timeInterval)
+        }
+    },1000)
 }
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', (event) => {

@@ -18,15 +18,22 @@ h1{
     border: solid black 3px;
     border-radius: 15px;
     height: 60px;
-    width: 650px;
+    width: 620px;
     margin: 0 auto;
     margin-bottom: 20px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 #timer{
+    text-align: left;
+}
+#message{
     text-align: center;
 }
 #score{
-    text-align: center;
+    text-align: right;
 }
 .game{
     border: solid black 3px;
@@ -40,7 +47,12 @@ h1{
     margin: 0 auto;
     margin-bottom: 20px;
 }
-.startbutton{
+.button{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.start{
     border: solid black 3px;
     border-radius: 15px;
     text-align: center;
@@ -48,7 +60,19 @@ h1{
     align-content: center;
     align-items: center;
     width: 300px;
-    margin: 0 auto;
+    margin: 0 ;
+    margin-right: 10px;
+}
+.reset{
+  border: solid black 3px;
+    border-radius: 15px;
+    text-align: center;
+    height: 70px;
+    align-content: center;
+    align-items: center;
+    width: 300px;
+    margin: 0 ;
+    margin-left: 10px;
 }
 button{
      background-color:white;

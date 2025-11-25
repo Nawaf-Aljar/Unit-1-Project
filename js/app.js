@@ -9,7 +9,6 @@ let timeInterval
 let score = 0
 let winner = false
 let gameOver = false
-
 let characterPosition = 340
 let fallingSpeed = 1
 let fallingInterval
@@ -17,9 +16,12 @@ let objectInterval
 
 /*------------------------ Cached Element References ------------------------*/
 
-const buttonElement = document.querySelector("#button")
+const buttonBorderElement = document.querySelector(".button")
+const startButtonElement = document.querySelector("#startButton")
+const restButtonElement = document.querySelector("#resetButton")
 const displayScoreElement = document.querySelector("#score")
 const displayTimerElement = document.querySelector("#timer")
+const displayMessageElement = document.querySelector("#message")
 const gameAreaElement = document.querySelector(".game")
 const characterElement = document.getElementById("character")
 const fallingElement = document.getElementById("fallingObject")
@@ -27,12 +29,14 @@ const fallingElement = document.getElementById("fallingObject")
 /*-------------------------------- Functions --------------------------------*/
 
 function init() {
+    if(timer === 30){
     characterElement.classList.remove("hidden")
     fallingElement.classList.remove("hidden")
     fallingElement.style.left = Math.random() * 370 + 'px';
     fallingElement.style.top = '0px'
     fallingInterval = setInterval(objectMovement, fallingSpeed);
     time()
+    }
 }
 function objectMovement() {
     let objectTop = parseInt(fallingElement.style.top);
@@ -52,12 +56,18 @@ function resetObject() {
     fallingElement.style.top = '0px';
     fallingElement.style.left = Math.random() * 370 + 'px';
 }
-function checkGameOver(){
-
+function GameOver(){
+    if (timer === 0){
+        resetGame()
+    }
 }
 function checkForWinner(){
-    if(timer === 0 && score === 30){
+    if( score > 15){
         winner = true
+        displayMessageElement.innerText = "Congratulations! You won the game!"
+    }
+    else if(timer === 0 && score < 15){
+        displayMessageElement.innerText = "Game Over! Better luck next time!"
     }
 }
 function time(){
@@ -69,6 +79,13 @@ function time(){
         }
     },1000)
 }
+function resetGame(){
+    timer = 30
+    clearInterval(timeInterval)
+    clearInterval(fallingInterval)
+    characterElement.classList.add("hidden")
+    fallingElement.classList.add("hidden")
+}
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft' && characterPosition > 90) {
@@ -79,5 +96,5 @@ document.addEventListener('keydown', (event) => {
         characterElement.style.left = characterPosition + 'px';
     }
 });
-buttonElement.addEventListener("click",init)
-
+startButtonElement.addEventListener("click",init)
+restButtonElement.addEventListener("click",resetGame)

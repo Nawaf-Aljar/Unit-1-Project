@@ -10,7 +10,8 @@ let timeInterval
 let score = 0
 let winner = false
 let characterPosition = 340
-let fallingSpeed = 1
+let fallingSpeed = 1.5
+let negativeFallingSpeed = 1
 let fallingInterval
 let objectInterval
 
@@ -25,6 +26,7 @@ const displayMessageElement = document.querySelector("#message")
 const gameAreaElement = document.querySelector(".game")
 const characterElement = document.getElementById("character")
 const fallingElement = document.getElementById("fallingObject")
+const negativeFallingElement = document.getElementById("negativeFallingObject")
 
 /*-------------------------------- Functions --------------------------------*/
 
@@ -32,8 +34,11 @@ function init() {
     if(timer === 30){
     characterElement.classList.remove("hidden")
     fallingElement.classList.remove("hidden")
+    negativeFallingElement.classList.remove("hidden")
     fallingElement.style.left = Math.random() * 370 + 'px';
     fallingElement.style.top = '0px'
+    negativeFallingElement.style.left = Math.random() * 370 + 'px';
+    negativeFallingElement.style.top = '0px'
     fallingInterval = setInterval(objectMovement, fallingSpeed);
     displayScoreElement.innerText = 'Score: ' + score
     displayTimerElement.textContent = "Timer: " + timer
@@ -49,15 +54,28 @@ function objectMovement() {
         parseInt(fallingElement.style.left) < characterPosition + 80) {
         score++;
         displayScoreElement.innerText = 'Score: ' + score;
-        resetObject();
+        resetObject(fallingElement);
     }
     if (objectTop > 335) {
-        resetObject();
+        resetObject(fallingElement);
+    }
+
+    let negativeObjectTop = parseInt(negativeFallingElement.style.top);
+    negativeObjectTop+= negativeFallingSpeed;
+    negativeFallingElement.style.top = negativeObjectTop + 'px';
+    if (negativeObjectTop > 335 && negativeObjectTop < 800 && parseInt(negativeFallingElement.style.left) > characterPosition - 50 && 
+        parseInt(negativeFallingElement.style.left) < characterPosition + 80) {
+        score--;
+        displayScoreElement.innerText = 'Score: ' + score;
+        resetObject(negativeFallingElement);
+    }
+    if (negativeObjectTop > 335) {
+        resetObject(negativeFallingElement);
     }
 }
-function resetObject() {
-    fallingElement.style.top = '0px';
-    fallingElement.style.left = Math.random() * 370 + 'px';
+function resetObject(obj) {
+    obj.style.top = '0px';
+    obj.style.left = Math.random() * 370 + 'px';
 }
 function GameOver(){
     if (timer <= 0){

@@ -37,7 +37,6 @@ h1{
 }
 .game{
     border: solid black 3px;
-    /* background-color: red; */
     border-radius: 15px;
     background-image: url(/assets/background.jpg);
     height: 400px;
@@ -47,12 +46,12 @@ h1{
     margin: 0 auto;
     margin-bottom: 20px;
 }
-.button{
+.buttonBox{
     display: flex;
     justify-content: center;
     align-content: center;
 }
-.start{
+#button{
     border: solid black 3px;
     border-radius: 15px;
     text-align: center;
@@ -62,17 +61,6 @@ h1{
     width: 300px;
     margin: 0 ;
     margin-right: 10px;
-}
-.reset{
-  border: solid black 3px;
-    border-radius: 15px;
-    text-align: center;
-    height: 70px;
-    align-content: center;
-    align-items: center;
-    width: 300px;
-    margin: 0 ;
-    margin-left: 10px;
 }
 button{
      background-color:white;

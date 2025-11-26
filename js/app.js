@@ -19,17 +19,14 @@ let characterPosition = 340
 let fallingSpeed = 1.5
 let negativeFallingSpeed = 1
 let fallingInterval
-let objectInterval
+let gameLive = false
 
 /*------------------------ Cached Element References ------------------------*/
 
-const buttonBorderElement = document.querySelector(".button")
-const startButtonElement = document.querySelector("#startButton")
-const restButtonElement = document.querySelector("#resetButton")
+const ButtonElement = document.querySelector("#button")
 const displayScoreElement = document.querySelector("#score")
 const displayTimerElement = document.querySelector("#timer")
 const displayMessageElement = document.querySelector("#message")
-const gameAreaElement = document.querySelector(".game")
 const characterElement = document.getElementById("character")
 const fallingElement = document.getElementById("fallingObject")
 const negativeFallingElement = document.getElementById("negativeFallingObject")
@@ -38,21 +35,23 @@ const negativeFallingElement = document.getElementById("negativeFallingObject")
 
 function init() {
     if(timer === 30){
-    characterElement.classList.remove("hidden")
-    fallingElement.classList.remove("hidden")
-    negativeFallingElement.classList.remove("hidden")
-    fallingElement.style.left = Math.random() * 400 + 'px';
-    fallingElement.style.top = '0px'
-    negativeFallingElement.style.left = Math.random() * 400 + 'px';
-    negativeFallingElement.style.top = '0px'
-    fallingInterval = setInterval(objectMovement, fallingSpeed)
-    setTimeout(() => {negativeFallingElement.style.top = "0px"}, 700)
-    displayScoreElement.innerText = 'Score: ' + score
-    displayTimerElement.textContent = "Timer: " + timer
-    time()
-    GameOver()
-    }
-    messageDisplay
+        gameLive = true
+        ButtonElement.innerText = "Reset Game"
+        characterElement.classList.remove("hidden")
+        fallingElement.classList.remove("hidden")
+        negativeFallingElement.classList.remove("hidden")
+        fallingElement.style.left = Math.random() * 400 + 'px';
+        fallingElement.style.top = '0px'
+        negativeFallingElement.style.left = Math.random() * 400 + 'px';
+        negativeFallingElement.style.top = '0px'
+        fallingInterval = setInterval(objectMovement, fallingSpeed)
+        setTimeout(() => {negativeFallingElement.style.top = "0px"}, 700)
+        displayScoreElement.innerText = 'Score: ' + score
+        displayTimerElement.textContent = "Timer: " + timer
+        time()
+        GameOver()
+        messageDisplay()
+    } 
 }
 function objectMovement() {
     let objectTop = parseInt(fallingElement.style.top);
@@ -67,7 +66,6 @@ function objectMovement() {
     if (objectTop > 335) {
         spawnObject(fallingElement);
     }
-
     let negativeObjectTop = parseInt(negativeFallingElement.style.top);
     negativeObjectTop+= negativeFallingSpeed;
     negativeFallingElement.style.top = negativeObjectTop + 'px';
@@ -83,8 +81,6 @@ function objectMovement() {
 }
 function spawnObject(obj) {
     obj.style.top = '0px';
-  // obj.style.left = Math.random() * 370 + 'px';
-
     let positionOne = null;
     let positionTwo = null;
     positionOne = Math.floor(Math.random() * 400);
@@ -121,6 +117,7 @@ function time(){
     },1000)
 }
 function resetGame(){
+    gameLive = false
     timer = 30
     score = 0
     clearInterval(timeInterval)
@@ -130,12 +127,14 @@ function resetGame(){
     negativeFallingElement.classList.add("hidden")
     displayTimerElement.innerText = " "
     displayScoreElement.innerText = " "
-    displayMessageElement.innerText = " "
+    displayMessageElement.innerHTML = "Welcome to Object Dropper!<br>Catch the falling objects, avoid the bad ones, and race against the clock.<br>Press Start Game to begin!"
+    ButtonElement.innerText = "Start Game"
 }
 function messageDisplay(){
     const randomMessage = Math.floor(Math.random()* messages.length)
     displayMessageElement.innerText = messages[randomMessage]
 }
+
 /*----------------------------- Event Listeners -----------------------------*/
 
 document.addEventListener('keydown', (event) => {
@@ -147,5 +146,11 @@ document.addEventListener('keydown', (event) => {
         characterElement.style.left = characterPosition + 'px';
     }
 });
-startButtonElement.addEventListener("click",init)
-restButtonElement.addEventListener("click",resetGame)
+ButtonElement.addEventListener("click", () =>{
+    if (gameLive === false){
+        init()
+    }
+    else{
+        resetGame()
+    }
+})

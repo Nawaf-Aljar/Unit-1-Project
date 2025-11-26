@@ -15,7 +15,7 @@
 
 ## Game Screenshots:
 
-![Game Home Page](./assets/Object%20Dropper%20-%20Home%20Screen.png)
+![Game Home Page](./assets/Object%20Dropper%20-%20Main%20Page.png)
 
 ## Getting Started:
 

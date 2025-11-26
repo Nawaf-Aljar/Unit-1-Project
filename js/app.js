@@ -35,11 +35,12 @@ function init() {
     characterElement.classList.remove("hidden")
     fallingElement.classList.remove("hidden")
     negativeFallingElement.classList.remove("hidden")
-    fallingElement.style.left = Math.random() * 370 + 'px';
+    fallingElement.style.left = Math.random() * 400 + 'px';
     fallingElement.style.top = '0px'
-    negativeFallingElement.style.left = Math.random() * 370 + 'px';
+    negativeFallingElement.style.left = Math.random() * 400 + 'px';
     negativeFallingElement.style.top = '0px'
-    fallingInterval = setInterval(objectMovement, fallingSpeed);
+    fallingInterval = setInterval(objectMovement, fallingSpeed)
+    setTimeout(() => {negativeFallingElement.style.top = "0px"}, 700)
     displayScoreElement.innerText = 'Score: ' + score
     displayTimerElement.textContent = "Timer: " + timer
     time()
@@ -54,10 +55,10 @@ function objectMovement() {
         parseInt(fallingElement.style.left) < characterPosition + 80) {
         score++;
         displayScoreElement.innerText = 'Score: ' + score;
-        resetObject(fallingElement);
+        spawnObject(fallingElement);
     }
     if (objectTop > 335) {
-        resetObject(fallingElement);
+        spawnObject(fallingElement);
     }
 
     let negativeObjectTop = parseInt(negativeFallingElement.style.top);
@@ -67,15 +68,23 @@ function objectMovement() {
         parseInt(negativeFallingElement.style.left) < characterPosition + 80) {
         score--;
         displayScoreElement.innerText = 'Score: ' + score;
-        resetObject(negativeFallingElement);
+        spawnObject(negativeFallingElement);
     }
     if (negativeObjectTop > 335) {
-        resetObject(negativeFallingElement);
+        spawnObject(negativeFallingElement);
     }
 }
-function resetObject(obj) {
+function spawnObject(obj) {
     obj.style.top = '0px';
-    obj.style.left = Math.random() * 370 + 'px';
+  // obj.style.left = Math.random() * 370 + 'px';
+
+    let positionOne = null;
+    let positionTwo = null;
+    positionOne = Math.floor(Math.random() * 400);
+    do {
+        positionTwo = Math.floor(Math.random() * 400);
+    } while(positionTwo > positionOne +50 || positionTwo < positionOne -50);
+    obj.style.left = positionOne + "px"
 }
 function GameOver(){
     if (timer <= 0){
@@ -111,6 +120,7 @@ function resetGame(){
     clearInterval(fallingInterval)
     characterElement.classList.add("hidden")
     fallingElement.classList.add("hidden")
+    negativeFallingElement.classList.add("hidden")
     displayTimerElement.innerText = " "
     displayScoreElement.innerText = " "
     displayMessageElement.innerText = " "
@@ -120,10 +130,10 @@ function resetGame(){
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft' && characterPosition > 90) {
-        characterPosition -= 30;
+        characterPosition -= 35;
         characterElement.style.left = characterPosition + 'px';
     } else if (event.key === 'ArrowRight' && characterPosition < 600) {
-        characterPosition += 30;
+        characterPosition += 35;
         characterElement.style.left = characterPosition + 'px';
     }
 });

@@ -87,23 +87,17 @@ img{
     left: 50%;
     width: 80px;
     height: 20px;
-    /* margin: auto; */
-    /* background-color: #ff5722; */
     transform: translateX(-50%);
 }
 #fallingObject {
     position:relative;
     width: 30px;
     height: 30px;
-    /* background-color: #4caf50; */
-    border-radius: 50%;
-    /* margin: 0 auto; */
 }
 #negativeFallingObject{
     position:relative;
     width: 30px;
     height: 30px;
-    border-radius: 50%;
 }
 .hidden{
     visibility: hidden;
